@@ -288,7 +288,6 @@ app.post('/uploadmarks/:ID', function(req, res) {
         var FACU_ID=req.body.FACU_ID;
         var COURSEID=req.body.COURSEID;
         var sql= "delete from marks where FACU_ID='"+FACU_ID+"' and STUD_ID='"+STUD_ID+"' and COURSEID='"+COURSEID+"';"
-        console.log(sql);
         connection.query(sql, function(err, result) {
           if (err) {
               throw err;
@@ -507,6 +506,12 @@ app.post('/uploadmarks/:ID', function(req, res) {
           }
           else{
              console.log("doc deleted");
+             // fs.unlink(path, (err) => {
+             //   if (err) {             coding for deleting the file
+             //     console.error(err)
+             //     return
+             //   }
+             // })
              res.redirect("/uploaddoc/"+rollno);
           }
         });
@@ -571,7 +576,31 @@ app.post('/uploadmarks/:ID', function(req, res) {
    }
  });
 
- });
+});
+
+app.post("/deleteproof",(req,res)=>{
+  var ROLLNUM=req.body.ROLLNUM;
+  var TYPE=req.body.TYPE;
+  var ID=req.body.ID;
+  var path=req.body.Link;
+  var sql= "delete from PROOFDOC where ROLLNUM='"+ROLLNUM+"'and DOCTYPE='"+TYPE+"';"
+  connection.query(sql, function(err, result) {
+    if (err) {
+        throw err;
+        res.send("Opps SQL error");
+        console.log(err);
+    }
+    else{
+       fs.unlink(path, (err) => {
+         if (err) {
+           console.error(err)
+           return
+         }
+       })
+      res.redirect("/viewList/"+ID);
+    }
+  });
+});
 
   app.get("/afterverification/:data",(req,res)=>{
       console.log("here1");

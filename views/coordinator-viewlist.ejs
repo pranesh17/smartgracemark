@@ -104,7 +104,15 @@
                     <td><%=i; %></td>
                     <td><%=data.ROLLNUM %></td>
                     <td><%=data.DATE %></td>
-                    <td><a href="/users/delete/<%=data.id%>">Delete</a></td>
+                    <td>
+                      <form id="markdelete" class="" action="/deleteproof" method="post">
+                       <input type="hidden"  name="ROLLNUM" value="<%= data.ROLLNUM ; %>">
+                       <input type="hidden"  name="TYPE" value="<%= data.DOCTYPE ; %>">
+                       <input type="hidden"  name="ID" value="<%= id ; %>">
+                       <input type="hidden"  name="Link" value="<%= data.LINK ; %>">
+                       <input style="margin-left:15px;" type="submit" class="btn btn-danger" value="delete">
+                       </form>
+                    </td>
                 </tr>
                 <%  i++; }) %>
                 <% } else{ %>
