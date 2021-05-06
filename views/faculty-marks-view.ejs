@@ -118,7 +118,14 @@
                       <td><%=data.COURSEID %></td>
                       <td><%=data.MARKS %></td>
                       <td><a href="/users/edit/<%=data.id%>">Edit</a></td>
-                      <td><a href="/users/delete/<%=data.id%>">Delete</a></td>
+                      <td>
+                            <form id="markdelete" class="" action="/deletemarks" method="post">
+                             <input type="hidden"  name="STUD_ID" value="<%= data.STUD_ID ; %>">
+                             <input type="hidden"  name="COURSEID" value="<%= data.COURSEID ; %>">
+                             <input type="hidden"  name="FACU_ID" value="<%= data.FACU_ID ; %>">
+                             <input style="margin-left:15px;" type="submit" class="btn btn-danger" value="delete">
+                             </form>
+                        </td>
                   </tr>
                   <%  i++; }) %>
                   <% } else{ %>

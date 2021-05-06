@@ -283,6 +283,24 @@ app.post('/uploadmarks/:ID', function(req, res) {
       });
     });
 
+    app.post('/deletemarks',(req,res)=>{
+        var STUD_ID=req.body.STUD_ID;
+        var FACU_ID=req.body.FACU_ID;
+        var COURSEID=req.body.COURSEID;
+        var sql= "delete from marks where FACU_ID='"+FACU_ID+"' and STUD_ID='"+STUD_ID+"' and COURSEID='"+COURSEID+"';"
+        console.log(sql);
+        connection.query(sql, function(err, result) {
+          if (err) {
+              throw err;
+              res.send("Opps SQL error");
+              console.log(err);
+          }
+          else{
+            res.redirect("/marks_view_faculty/"+FACU_ID);
+          }
+        });
+    });
+
    app.get('/facultygracemarks/:ID',(req,res)=>{
         var fac_name= faculty_name(req.params.ID);
         res.render("faculty-gracemarks",{name:fac_name,id:req.params.ID});    // need to add js for disabling the button
@@ -600,9 +618,9 @@ app.post('/uploadmarks/:ID', function(req, res) {
    });
 
    app.post("/getFile",(req,res)=>{
-   //   var roll=res.body.roll;
-   //   var type res.body.type;
-   //   console.log(res.body); // get type and rollnum to query about link
+   //   var roll=req.body.roll;
+   //   var type=req.body.type;
+   //   console.log(req.body); // get type and rollnum to query about link
    //   var sql="select * from PROOFDOC where rollnum='"+roll+"' and DOCTYPE='"+type+"';";
    //   connection.query(sql, function(err, result) {
    //   if (err) {
