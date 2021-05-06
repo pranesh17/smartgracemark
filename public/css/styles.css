@@ -1,0 +1,65 @@
+.navbar-brand {
+    margin-left: 2rem;
+    font-family: "ubuntu",sans-serif;
+    font-size: 2.5rem !important;
+    font-weight: bold;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+ .nav-link {
+    font-size: 1.2rem;
+
+}
+.logo-pic{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.title {
+    background-image: url("D:/5th sem/D B M S - 15CSE302/project/images/bg.jpg");
+    background-color:  #c2f0ff;
+    background-repeat: round;
+    padding: 10% 0 5% 0;
+}
+
+#reviews {
+
+    text-align: center;
+    color: #fff;
+}
+
+.studentHomeBody{
+  padding: 30px;
+}
+.studentHomeBody .card{
+  background-color: #f7f3e9;
+}
+
+.about-section{
+    text-align: center;
+    background-color:  #99ccff;
+    padding: 4%;
+    color: white;
+}
+
+.about-text-title{
+    color: #5b5b5b;
+    font-family: "ubuntu",sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.about-text {
+    padding: 2% 4%;
+    font-family: "ubuntu",sans-serif;
+    color: #433d3c;
+}
+
+.row{
+    display: flex;
+    height: 695px;
+}

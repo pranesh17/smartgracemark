@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,600,700,900|Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/studentupload.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>Student upload</title>
+  </head>
+  <body>
+    <div class="header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+     <a class="navbar-brand" href="#">Gracemark Allocator</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+           <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+         </li>
+
+         <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Options
+           </a>
+           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <a class="dropdown-item" href="">Upload Files</a>
+             <a class="dropdown-item" href="#">Results</a>
+         </li>
+
+       </ul>
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav ml-auto">
+           <li class="nav-item">
+             <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/12/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" width="50" height="50"></a>
+           </li>
+           <li class="nav-item">
+             <a class="btn btn-dark btn-lg" href="/" role="button">Logout<i class="fas fa-sign-out-alt"></i></a>
+           </li>
+         </ul>
+       </div>
+     </div>
+
+    </div>
+    <hr>
+ <div class="container">
+   <h2>Student Upload</h2>
+    <%
+    var papername=null;
+    var servicename=null;
+    var cocarricularname=null;
+    var paperdate=null;
+    var servicedate=null;
+    var cocarriculardate=null;
+    var roll=null;
+    try {
+        roll=filedata[0].ROLLNUM;
+   }
+   catch(err) {
+       roll=null;
+   }
+
+   filedata.forEach(function(data){
+
+       if(data.DOCTYPE=="paper"){
+          papername=data.NAME;
+          paperdate=data.DATE;
+       }else if(data.DOCTYPE=="services"){
+         servicename=data.NAME;
+         servicedate=data.DATE;
+       }else if (data.DOCTYPE=="cocurricular") {
+         cocarricularname=data.NAME;
+         cocarriculardate=data.DATE;
+       }
+       roll=data.ROLLNUM;
+   });
+
+   %>
+   <div class="uploadblock">
+
+     <div class="row align-items-center">
+
+        <div class="col-4">
+          <div class="uploadtop pap">
+            <h5>Paper published</h5>
+            <form id="uploadForm" enctype="multipart/form-data" action="/uploaddoc/paper" method="post">
+              <input type="file" name="file" /> <br> <br>
+              <input type="hidden" id="rollno" name="rollno" value="<%=roll ;%>" >
+              <button type="submit" class="btn-sm btn-info" value="Upload" name="submit">Add</button>
+            </form>
+          </div>
+          <div class="uploadedfile paper">
+            <div class="card " style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"> <%=papername ; %> </h5>
+                  <h6 class="card-subtitle mb-2 text-muted"> <%=paperdate ; %> </h6>
+                  <div class="flex-end">
+                   <form class="" action="/docdelete" method="post">
+                      <input type="hidden" id="rollno" name="rollno"  value="<%=roll ;%>">
+                      <input type="hidden" id="type" name="type" value="paper">
+                      <button type="submit" class="btn btn-danger flex-end">Remove</button>
+                   </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="col-4">
+        <div class="uploadtop cocur">
+          <h5>Co-curricular activities</h5>
+          <form id="uploadForm" enctype="multipart/form-data" action="/uploaddoc/cocurricular" method="post">
+            <input type="file" name="file" /> <br> <br>
+            <input type="hidden" id="rollno" name="rollno" value="<%=roll ; %>">
+            <button type="submit" class="btn-sm btn-info" value="Upload" name="submit">Add</button>
+          </form>
+        </div>
+        <div class="uploadedfile activities">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%=cocarricularname ; %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%=cocarriculardate ; %></h6>
+              <div class="flex-end">
+                <form class="" action="/docdelete" method="post">
+                   <input type="hidden" id="rollno" name="rollno"  value="<%=roll ;%>">
+                   <input type="hidden" id="type" name="type" value="cocurricular">
+                   <button type="submit" class="btn btn-danger flex-end">Remove</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-4">
+         <div class="uploadtop ser">
+           <h5>Service</h5>
+           <form id="uploadForm" enctype="multipart/form-data" action="/uploaddoc/services" method="post">
+             <input type="file" name="file" /> <br> <br>
+             <input type="hidden" id="rollno" name="rollno" value="<%=roll ; %>">
+             <button type="submit" class="btn-sm btn-info" value="Upload" name="submit">Add</button>
+           </form>
+         </div>
+         <div class="uploadedfile service">
+           <div class="card" style="width: 18rem;">
+             <div class="card-body">
+                 <h5 class="card-title"> <%=servicename ; %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%=servicedate ; %></h6>
+                <div class="flex-end">
+                  <form class="" action="/docdelete" method="post">
+                     <input type="hidden" id="rollno" name="rollno"  value="<%=roll ;%>">
+                     <input type="hidden" id="type"  name="type" value="services">
+                     <button type="submit" class="btn btn-danger flex-end">Remove</button>
+                  </form>
+               </div>
+             </div>
+         </div>
+         </div>
+      </div>
+
+    </div>
+   </div>
+ </div>
+    <script src="/js/upload.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+  </body>
+</html>

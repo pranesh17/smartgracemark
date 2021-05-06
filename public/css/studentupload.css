@@ -1,0 +1,46 @@
+.navbar-brand {
+    margin-left: 2rem;
+    font-family: "ubuntu",sans-serif;
+    font-size: 2.5rem !important;
+    font-weight: bold;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+ .nav-link {
+    font-size: 1.2rem;
+
+}
+.logo-pic{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.body{
+  background-color: #dddddd;
+}
+.container{
+  margin: 25px;
+
+}
+.uploadblock{
+   padding-top: 120px;
+   height: 695px;
+   width: 100%;
+}
+
+.flex-end {
+        padding: 10px 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+.uploadtop{
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.uploadedfile{
+
+}

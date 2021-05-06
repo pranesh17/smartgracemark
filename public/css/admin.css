@@ -1,0 +1,139 @@
+p{
+    margin-bottom: 0;
+}
+
+.navbar-brand {
+    margin-left: 2rem;
+    font-family: "ubuntu",sans-serif;
+    font-size: 2.5rem !important;
+    font-weight: bold;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+
+}
+
+.admin-side-bar{
+    padding-left: 1%;
+    padding-right: 0;
+    background-image: linear-gradient(#343a40, #0093E9);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
+    color: white;
+    height: 850px;
+}
+
+.arrow{
+    position: absolute;
+    margin-top: 0.8%;
+    right: 10px;
+}
+
+#role{
+    font-weight: 900;
+    font-style: italic;
+    margin-left: 10%;
+    margin-bottom: 10%;
+}
+
+.user-img{
+    margin: 5% 0 5% 20%;
+    /* vertical-align: middle; */
+    border-radius: 50%;
+}
+
+.functions{
+    width: 100%;
+    padding: 2% 0 2% 10%;
+    cursor: pointer;
+    font-size: large;
+    font-weight: 600;
+}
+
+.functions:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.functions:not(.collapsed) {
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: 700;
+}
+
+.collapsed{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sub-functions{
+    font-size: small;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);;
+    margin:2% 0 2% 10%;
+    width: 35%;
+    border-radius: 20px;
+    padding: 2%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.active-sub-function{
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: 600;
+}
+
+.sub-functions:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.content{
+  background: white ;
+  /*background-image: url("https://www.transparenttextures.com/patterns/black-thread.png");*/
+  /*background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
+  /*background-image: url("https://www.transparenttextures.com/patterns/gplay.png");*/
+  background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+  height: 850px;
+  padding: 0 16px;
+  overflow: scroll;
+}
+
+
+.tables{
+    padding: 5% 0;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    width: 90%;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.div-on-right{
+
+    padding: 3%;
+    background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+
+.verification{
+  margin: 50px;
+}
+
+
+.rollinput{
+  padding-left: 80px;
+  padding-top: 50px;
+}
+
+.verificationBody{
+  background-color: #f8f5f1;
+  margin-left:100px;
+  margin-top: 50px;
+  padding: 20px;
+  width: 70%;
+  height: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
