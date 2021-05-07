@@ -259,7 +259,13 @@ app.post('/uploadmarks/:ID', function(req, res) {
                                   }
                                   });
                           });
-                    //console.log(path);//find a way to delete the file
+                          console.log(path);
+                          fs.unlink(path, (err) => {
+                            if (err) {
+                              console.error(err)
+                              return
+                            }
+                          })
                     res.redirect("/marks_view_faculty/"+FACU_ID);
                  });
              } catch (e){
