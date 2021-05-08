@@ -709,6 +709,32 @@ app.post("/deleteproof",(req,res)=>{
      }
    });
   });
+//------------------Exam-officer---------------------------------------------------
+app.get("/examofficerhome/:id",(req,res)=>{
+
+         res.render("examoff-home",{name:"pranesh",id:"111"});
+
+});
+
+app.get("/FixGradingScheme/:id",(req,res)=>{
+
+         res.render("examoff-gradscheme",{name:"pranesh",id:"111"});
+
+});
+
+app.get("/FixGraceMarkRules/:id",(req,res)=>{
+
+         res.render("examoff-gmrules",{name:"pranesh",id:"111"});
+
+});
+
+app.get("/Results/:id",(req,res)=>{
+
+         res.render("examoff-results",{name:"pranesh",id:"111"});
+
+});
+
+
 
 
 //------------------test---------------------------------------------------
