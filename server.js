@@ -511,7 +511,6 @@ app.post('/uploadmarks/:ID', function(req, res) {
               console.log(err);
           }
           else{
-             console.log(result);
              path=result[0].LINK;
              fs.unlink(path, (err) => {
                if (err) {
@@ -523,7 +522,6 @@ app.post('/uploadmarks/:ID', function(req, res) {
         });
 
         var sql="DELETE from PROOFDOC where rollnum='"+rollno+"'and DOCTYPE = '"+type+"';";
-        console.log(sql);
         connection.query(sql, function(err, result) {
           if (err) {
               throw err;
@@ -765,8 +763,7 @@ app.post("/gradscheme/:id",(req,res)=>{
                    return res.json({error_code:1,err_desc:err, data: null});
                }
                 result.forEach(function(entry) {
-
-                      var _sql="Select * from COURSE where ID ='"+entry.id+"'and CREDITS='"+entry.credits+"';"
+                      var _sql="Select * from GRADE where GRADE ='"+entry.grade+"';"
                       connection.query(_sql, function(err, _result) {
                           if (err){
                              throw err;
@@ -776,7 +773,7 @@ app.post("/gradscheme/:id",(req,res)=>{
                             {
                                  var sql;
                                  if(_result.length==0){
-                                    sql = "INSERT INTO COURSE (ID, CREDITS) VALUES('"+entry.id+"','"+entry.credits+"');"
+                                    sql = "INSERT INTO GRADE (GRADE, MINMARK ,MAXMARK , POINTS) VALUES('"+entry.grade+"',"+entry.minmark+","+entry.maxmark+","+entry.points+");"
 
                                    connection.query(sql, function(err, __result) {
                                         if (err){
@@ -791,7 +788,7 @@ app.post("/gradscheme/:id",(req,res)=>{
                                       });
 
                                  }else{
-                                  sql="UPDATE COURSE SET CREDITS="+entry.credits+" where ID='"+entry.id+"';"
+                                  sql="UPDATE GRADE SET MINMARK="+entry.minmark+",MAXMARK="+entry.maxmark+",POINTS="+entry.points+" where GRADE='"+entry.GRADE+"';"
                                   connection.query(sql, function(err, __result) {
                                        if (err){
                                          res.send()
@@ -836,7 +833,7 @@ app.get("/Results/:id",(req,res)=>{
 
 app.get("/calculateresult",(req,res)=>{
     var spawn = require("child_process").spawn;
-    var process = spawn('python',["./hello.py","pranesh","guru"] );
+    var process = spawn('python',["./pythonscript/GMA.py"] );
 
     process.stdout.on('data', function(data) {
         res.send(data.toString());
@@ -845,7 +842,12 @@ app.get("/calculateresult",(req,res)=>{
 });
 
 app.get("/publishresult",(req,res)=>{
-    console.log("here2");
+  var spawn = require("child_process").spawn;
+  var process = spawn('python',["./pythonscript/Results.py"] );
+
+  process.stdout.on('data', function(data) {
+      res.send(data.toString());
+  } )
 
 });
 

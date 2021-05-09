@@ -1,6 +1,12 @@
 import mysql.connector
+import os
+from dotenv import load_dotenv
 
-mydb = mysql.connector.connect(host="127.0.0.1", user="root", password="mithran123", database="GraceMarksSystem")
+load_dotenv()
+
+password = os.getenv('PASSWORD')
+
+mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
 mydb.autocommit=True
 mycursor = mydb.cursor()
 
@@ -29,10 +35,12 @@ for student in students:
         totcreds += sub[1]
         for grade in grades:
             if(float(grade[1]) <= sub[2] and float(grade[2]) >= sub[2]):
-                mycursor.execute("INSERT INTO TABLE RESULTS VALUES(%s,%s,%s)",(student[0], sub[0], grade[0]))
+                mycursor.execute("INSERT INTO RESULTS VALUES(%s,%s,%s)",(student[0], sub[0], grade[0],))
                 mydb.commit()
                 totbf += grade[3] * sub[1]
 
     SGPA = totbf/ totcreds
     mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
     mydb.commit()
+
+print("Published Result")
