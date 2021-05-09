@@ -503,6 +503,25 @@ app.post('/uploadmarks/:ID', function(req, res) {
     app.post("/docdelete",(req,res)=>{
         var rollno=req.body.rollno;
         var type=req.body.type;
+        var path;
+        var sql1="select * from PROOFDOC where rollnum='"+rollno+"'and DOCTYPE = '"+type+"';";
+        connection.query(sql1, function(err, result) {
+          if (err) {
+              throw err;
+              console.log(err);
+          }
+          else{
+             console.log(result);
+             path=result[0].LINK;
+             fs.unlink(path, (err) => {
+               if (err) {
+                 console.error(err)
+                 return
+               }
+             })
+          }
+        });
+
         var sql="DELETE from PROOFDOC where rollnum='"+rollno+"'and DOCTYPE = '"+type+"';";
         console.log(sql);
         connection.query(sql, function(err, result) {
@@ -512,12 +531,6 @@ app.post('/uploadmarks/:ID', function(req, res) {
           }
           else{
              console.log("doc deleted");
-             // fs.unlink(path, (err) => {
-             //   if (err) {             coding for deleting the file
-             //     console.error(err)
-             //     return
-             //   }
-             // })
              res.redirect("/uploaddoc/"+rollno);
           }
         });
