@@ -90,9 +90,9 @@
           <div class="uploadtop pap">
             <h5>Paper published</h5>
             <form id="uploadForm" enctype="multipart/form-data" action="/uploaddoc/paper" method="post">
-              <input type="file" name="file" /> <br> <br>
+              <input type="file" name="file" id="paper"/> <br> <br>
               <input type="hidden" id="rollno" name="rollno" value="<%=roll ;%>" >
-              <button type="submit" class="btn-sm btn-info" value="Upload" name="submit">Add</button>
+              <button type="submit" class="btn-sm btn-info" value="Upload" name="submit" id="addpaper">Add</button>
             </form>
           </div>
           <div class="uploadedfile paper">
@@ -116,9 +116,9 @@
         <div class="uploadtop cocur">
           <h5>Co-curricular activities</h5>
           <form id="uploadForm" enctype="multipart/form-data" action="/uploaddoc/cocurricular" method="post">
-            <input type="file" name="file" /> <br> <br>
+            <input type="file" name="file" id = "cocurricular" /> <br> <br>
             <input type="hidden" id="rollno" name="rollno" value="<%=roll ; %>">
-            <button type="submit" class="btn-sm btn-info" value="Upload" name="submit">Add</button>
+            <button type="submit" class="btn-sm btn-info" value="Upload" name="submit" id="addcocurricular">Add</button>
           </form>
         </div>
         <div class="uploadedfile activities">
@@ -142,9 +142,9 @@
          <div class="uploadtop ser">
            <h5>Service</h5>
            <form id="uploadForm" enctype="multipart/form-data" action="/uploaddoc/services" method="post">
-             <input type="file" name="file" /> <br> <br>
+             <input type="file" name="file" id="service" /> <br> <br>
              <input type="hidden" id="rollno" name="rollno" value="<%=roll ; %>">
-             <button type="submit" class="btn-sm btn-info" value="Upload" name="submit">Add</button>
+             <button type="submit" class="btn-sm btn-info" value="Upload" name="submit" id="addservice">Add</button>
            </form>
          </div>
          <div class="uploadedfile service">
