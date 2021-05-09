@@ -68,7 +68,24 @@
                       <th scope="col">Grade</th>
                   </tr>
                 </thead>
-
+                <!-- <tbody>
+              <%
+              if(userData.length!=0){
+              var i=1;
+              userData.forEach(function(data){
+              %>
+              <tr>
+                  <td><%=i; %></td>
+                  <td><%=data.STUD_ID %></td>
+                  <td><%=data.COURSEID %></td>
+              </tr>
+              <%  i++; }) %>
+              <% } else{ %>
+                  <tr>
+                      <td colspan="7">No Data Found</td>
+                  </tr>
+              <% } %>
+            </tbody> -->
                </table>
             </div>
         </div>
