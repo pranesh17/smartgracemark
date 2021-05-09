@@ -1,5 +1,9 @@
 import mysql.connector
 import copy
+import os
+from dotenv import load_dotenv
+load_dotenv()
+password = os.getenv('PASSWORD')
 
 class GMA:
     def __init__(self):
@@ -28,7 +32,7 @@ class GMA:
 
     def GraceMarkAllocator(self):
 
-        mydb = mysql.connector.connect(host="127.0.0.1", user="root", password="mithran123", database="GraceMarksSystem")
+        mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
         mydb.autocommit=True
         mycursor = mydb.cursor()
 
@@ -49,8 +53,12 @@ class GMA:
                 continue
 
             mycursor.execute("SELECT GRACEMARKS FROM GRACEMARKS WHERE GRACEMARKS.STUD_ID=%s",(student[0],))
-            gm = int(mycursor.fetchone()[0])
-
+            l = mycursor.fetchone()
+            if(l):
+                gm = int(l[0])
+            else:
+                gm = 0
+                
             creds = []
 
             for mark in marks:
@@ -87,7 +95,6 @@ class GMA:
                     gm += self.bestdist[ctr][2] - pm
                     self.bestdist[ctr][2] = pm
 
-            print(self.maxbf, self.bestdist, gm)
             for sub in self.bestdist:
                 mycursor.execute("UPDATE MARKS SET MARKS = %s WHERE STUD_ID = %s AND COURSEID = %s",(sub[2], student[0], sub[0],))
                 mydb.commit()
@@ -122,7 +129,7 @@ class GMA:
 
             self.maxbf = -1
             self.bestdist = []
-
+    print("GRACEMARKS Allocated")
 
 if __name__ == '__main__':
     G = GMA()

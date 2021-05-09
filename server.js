@@ -119,7 +119,25 @@ app.post('/login', (req, res) => {
         }
       }
     });
-  }else{
+  }else if(type=="EA"){
+      var sql= "select * from EXAMOFFICER where ID='"+username+"';"
+      connection.query(sql, function(err, result) {
+        if (err) {
+            throw err;
+            res.send("Opps SQL error");
+            console.log(err);
+        }
+        else{
+          if(password == result[0].PASSWORD){
+            res.redirect("/examofficerhome/"+result[0].ID);
+          }
+          else{
+             res.send("Wrong ID or password")
+          }
+        }
+      });
+  }
+  else{
      res.send("No user found")
   }
 
@@ -728,9 +746,18 @@ app.post("/deleteproof",(req,res)=>{
   });
 //------------------Exam-officer---------------------------------------------------
 app.get("/examofficerhome/:id",(req,res)=>{
-
-         res.render("examoff-home",{name:"pranesh",id:"111"});
-
+      var sql= "select * from EXAMOFFICER where ID='"+req.params.id+"';"
+      connection.query(sql, function(err, result) {
+      if (err) {
+          throw err;
+          console.log(err);
+      }
+      else{
+           name=result[0].NAME;
+           id=result[0].ID;
+           res.render("examoff-home",{name:name,id:id});
+      }
+    });
 });
 
 app.get("/FixGradingScheme/:id",(req,res)=>{

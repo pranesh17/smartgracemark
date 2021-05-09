@@ -1,6 +1,10 @@
 import mysql.connector
+import os
+from dotenv import load_dotenv
+load_dotenv()
+password = os.getenv('PASSWORD')
 
-mydb = mysql.connector.connect(host="127.0.0.1", user="root", password="mithran123", database="GraceMarksSystem")
+mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
 mydb.autocommit=True
 mycursor = mydb.cursor()
 
@@ -48,3 +52,4 @@ for student in students:
     else:
         mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
     mydb.commit()
+print("Results Calculated")
