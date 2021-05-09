@@ -721,6 +721,93 @@ app.get("/FixGradingScheme/:id",(req,res)=>{
          res.render("examoff-gradscheme",{name:"pranesh",id:"111"});
 
 });
+app.post("/gradscheme/:id",(req,res)=>{
+  var examoff_id=req.params.ID ;
+  var path;
+  var exceltojson;
+  upload(req,res,function(err){
+     path=req.file.path;
+     _file=req.file.path;
+      if(err){
+           res.json({error_code:1,err_desc:err});
+           return;
+      }
+      /** Multer gives us file info in req.file object */
+      if(!req.file){
+          res.json({error_code:1,err_desc:"No file passed"});
+          return;
+      }
+      if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+           exceltojson = xlsxtojson;
+       } else {
+           exceltojson = xlstojson;
+       }
+       try {
+           exceltojson({
+               input: req.file.path, //the same path where we uploaded our file
+               output: null, //since we don't need output.json
+               lowerCaseHeaders:true
+           }, function(err,result){
+               if(err) {
+                   return res.json({error_code:1,err_desc:err, data: null});
+               }
+                result.forEach(function(entry) {
+
+                      var _sql="Select * from COURSE where ID ='"+entry.id+"'and CREDITS='"+entry.credits+"';"
+                      connection.query(_sql, function(err, _result) {
+                          if (err){
+                             throw err;
+                             console.log(err.sqlMessage);
+                            }
+                          else
+                            {
+                                 var sql;
+                                 if(_result.length==0){
+                                    sql = "INSERT INTO COURSE (ID, CREDITS) VALUES('"+entry.id+"','"+entry.credits+"');"
+
+                                   connection.query(sql, function(err, __result) {
+                                        if (err){
+                                           throw err;
+                                           res.send(err)
+                                           console.log(err.sqlMessage);
+                                          }
+                                        else
+                                          {
+                                            console.log("added entry");
+                                           }
+                                      });
+
+                                 }else{
+                                  sql="UPDATE COURSE SET CREDITS="+entry.credits+" where ID='"+entry.id+"';"
+                                  connection.query(sql, function(err, __result) {
+                                       if (err){
+                                         res.send()
+                                          throw err;
+                                          console.log(err.sqlMessage);
+                                         }
+                                       else
+                                         {
+                                           console.log("entry Updated");
+                                          }
+                                     });
+                                 }
+                            }
+                            });
+                    });
+                    console.log(path);
+                    fs.unlink(path, (err) => {
+                      if (err) {
+                        console.error(err)
+                        return
+                      }
+                    })
+              res.redirect("/FixGradingScheme/"+FACU_ID);
+           });
+       } catch (e){
+           res.json({error_code:1,err_desc:"Corupted excel file"});
+       }
+   })
+});
 
 app.get("/FixGraceMarkRules/:id",(req,res)=>{
 
