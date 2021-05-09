@@ -1,12 +1,6 @@
 import mysql.connector
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-password = os.getenv('PASSWORD')
-
-mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
+mydb = mysql.connector.connect(host="127.0.0.1", user="root", password="mithran123", database="GraceMarksSystem")
 mydb.autocommit=True
 mycursor = mydb.cursor()
 
@@ -35,12 +29,22 @@ for student in students:
         totcreds += sub[1]
         for grade in grades:
             if(float(grade[1]) <= sub[2] and float(grade[2]) >= sub[2]):
-                mycursor.execute("INSERT INTO RESULTS VALUES(%s,%s,%s)",(student[0], sub[0], grade[0],))
-                mydb.commit()
+                mycursor.execute("SELECT * FROM RESULTS WHERE RESULTS.STUD_ID = %s AND RESULTS.COURSEID = %s",(mark[0],mark[1],))
+                l = mycursor.fetchone()
+                if(l == None):
+                    mycursor.execute("INSERT INTO RESULTS VALUES(%s,%s,%s)",(student[0], sub[0], grade[0]))
+                    mydb.commit()
+                else:
+                    mycursor.execute("UPDATE RESULTS SET GRADE = %s WHERE RESULTS.STUD_ID = %s AND RESULTS.COURSEID = %s",(mark[0],mark[1],))
+                    mydb.commit()
                 totbf += grade[3] * sub[1]
 
     SGPA = totbf/ totcreds
-    mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
+    mycursor.execute("SELECT * FROM SGPA WHERE SGPA.STUD_ID = %s",(mark[0],))
+    l = mycursor.fetchone()
+    if(l == None):
+        mycursor.execute("UPDATE SGPA SET SGPA = %s WHERE SGPA.STUD_ID = %s",(SGPA, mark[0]))
+        mydb.commit()
+    else:
+        mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
     mydb.commit()
-
-print("Published Result")

@@ -458,6 +458,12 @@ app.post('/uploadmarks/:ID', function(req, res) {
        });
    });
 
+   app.get('/studentViewResult/:id',(req,res)=>{
+           var rollno=req.params.rollno;
+           res.render("student-viewresult",{data:{roll:rollno}});
+
+   });
+
 
     app.post('/uploaddoc/:type',(req,res)=>{
          upload(req,res,function(err){

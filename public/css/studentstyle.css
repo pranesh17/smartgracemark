@@ -1,0 +1,123 @@
+.navbar-brand {
+    margin-left: 2rem;
+    font-family: "ubuntu",sans-serif;
+    font-size: 2.5rem !important;
+    font-weight: bold;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+ .nav-link {
+    font-size: 1.2rem;
+
+}
+.logo-pic{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.title {
+    background-image: url("D:/5th sem/D B M S - 15CSE302/project/images/bg.jpg");
+    background-color:  #c2f0ff;
+    background-repeat: round;
+    padding: 10% 0 5% 0;
+}
+
+#reviews {
+    text-align: center;
+    color: #fff;
+}
+
+.studentHomeBody{
+  padding: 30px;
+}
+.studentHomeBody .card{
+  background-color: #f7f3e9;
+}
+
+.about-section{
+    text-align: center;
+    background-color:  #99ccff;
+    padding: 4%;
+    color: white;
+}
+
+.about-text-title{
+    color: #5b5b5b;
+    font-family: "ubuntu",sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.about-text {
+    padding: 2% 4%;
+    font-family: "ubuntu",sans-serif;
+    color: #433d3c;
+}
+
+.row{
+    display: flex;
+    /* height: 695px; */
+}
+
+.studentnav{
+   background-color: #98ddca;
+}
+
+.studentHomeBody{
+  height: 700px;
+  background-color: #1c1427;
+  background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+}
+.studentHomeBody h3{
+  color: white;
+}
+.container{
+  padding-top: 25px;
+  margin: 0px 25px 25px 25px;
+}
+
+.uploadpage{
+  height: 700px;
+  /* background-color: #edeef7; */
+  /* background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png"); */
+  background-color: #41804e;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+
+}
+
+.uploadblock{
+   padding-top: 40px;
+   /* height: 695px; */
+   width: 100%;
+}
+
+.flex-end {
+        padding: 10px 0;
+        display: flex;
+        justify-content: flex-end;
+}
+.uploadtop{
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.uploadedfile{
+
+}
+
+.infocontainer{
+  padding-top: 25px;
+  margin: 0px 120px 25px 120px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.studentInfo{
+  padding-bottom: 25px;
+  padding-top: 10px;
+}
+.gradeTable{
+    width: 50%;
+}
