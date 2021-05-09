@@ -821,6 +821,21 @@ app.get("/Results/:id",(req,res)=>{
 
 });
 
+app.get("/calculateresult",(req,res)=>{
+    var spawn = require("child_process").spawn;
+    var process = spawn('python',["./hello.py","pranesh","guru"] );
+
+    process.stdout.on('data', function(data) {
+        res.send(data.toString());
+    } )
+
+});
+
+app.get("/publishresult",(req,res)=>{
+    console.log("here2");
+
+});
+
 
 
 
