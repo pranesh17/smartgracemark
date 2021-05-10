@@ -21,25 +21,25 @@
 
      <nav class="navbar navbar-expand-lg navbar-light studentnav"  >
 
-     <a class="navbar-brand" href="/student-home/<%= data.roll %>">Gracemark Allocator</a>
+     <a class="navbar-brand" href="/student-home/<%= roll %>">Gracemark Allocator</a>
 
      <div class="collapse navbar-collapse" id="navbarSupportedContent">
        <ul class="navbar-nav mr-auto">
          <li class="nav-item active">
-           <a class="nav-link" href="/student-home/<%= data.roll %>">Home</a>
+           <a class="nav-link" href="/student-home/<%= roll %>">Home</a>
          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/uploaddoc/<%= data.roll %>">Upload Files</a>
+            <a class="nav-link" href="/uploaddoc/<%= roll %>">Upload Files</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/studentViewResult/<%= data.roll %>">Results</a>
+            <a class="nav-link" href="/studentViewResult/<%= roll %>">Results</a>
           </li>
         </ul>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" target="blank" href="/profile"><%= data.roll %>
+              <a class="nav-link" target="blank" href="/profile"><%= roll %>
                 <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/12/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png" width="50" height="50"></a>
             </li>
             <li class="nav-item">
@@ -55,9 +55,9 @@
        <br><br>
        <div class="infocontainer">
            <div class="studentInfo">
-                <h4>Name:</h4>
-                <h4>RollNumber:</h4>
-                <h4><b>CGPA:</b></h4>
+                <h4>Name: <%= name %></h4>
+                <h4>RollNumber: <%= roll %></h4>
+                <h4><b>SGPA: <%= cgpa %></b></h4>
            </div>
            <div class="gradeTable">
              <table class="table table-hover table-bordered table-dark table-striped">
@@ -68,24 +68,24 @@
                       <th scope="col">Grade</th>
                   </tr>
                 </thead>
-                <!-- <tbody>
-              <%
-              if(userData.length!=0){
-              var i=1;
-              userData.forEach(function(data){
-              %>
-              <tr>
-                  <td><%=i; %></td>
-                  <td><%=data.STUD_ID %></td>
-                  <td><%=data.COURSEID %></td>
-              </tr>
-              <%  i++; }) %>
-              <% } else{ %>
-                  <tr>
-                      <td colspan="7">No Data Found</td>
-                  </tr>
-              <% } %>
-            </tbody> -->
+                  <tbody>
+                        <%
+                        if(userData.length!=0){
+                        var i=1;
+                        userData.forEach(function(data){
+                        %>
+                        <tr>
+                            <td><%=i; %></td>
+                            <td><%=data.COURSEID %></td>
+                            <td><%=data.GRADE %></td>
+                        </tr>
+                        <%  i++; }) %>
+                        <% } else{ %>
+                            <tr>
+                                <td colspan="7">No Data Found</td>
+                            </tr>
+                        <% } %>
+                 </tbody>
                </table>
             </div>
         </div>

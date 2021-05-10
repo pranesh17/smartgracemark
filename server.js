@@ -477,10 +477,45 @@ app.post('/uploadmarks/:ID', function(req, res) {
    });
 
    app.get('/studentViewResult/:id',(req,res)=>{
-           var rollno=req.params.rollno;
-           res.render("student-viewresult",{data:{roll:rollno}});
-
+           var rollno=req.params.id;
+           var Name;
+           var CGPA;
+           var sql= "select * from STUDENT where ROLLNUM='"+req.params.id+"';"
+           connection.query(sql, function(err, result) {
+             if (err) {
+                 throw err;
+                 console.log(err);
+             }
+             else{
+                 Name=result[0].NAME;
+                 var sql= "select * from sgpa where STUD_ID='"+rollno+"';"
+                 connection.query(sql, function(err, result) {
+                   if (err) {
+                       throw err;
+                       console.log(err);
+                   }
+                   else{
+                       if(result[0] !=undefined){
+                          CGPA=result[0].SGPA;
+                       }else{
+                           CGPA=0;
+                       }
+                       var sql= "select * from results where STUD_ID='"+rollno+"';"
+                       connection.query(sql, function(err, result) {
+                         if (err) {
+                             throw err;
+                             console.log(err);
+                         }
+                         else{
+                             res.render("student-viewresult",{userData:result,name:Name,roll:rollno,cgpa:CGPA});
+                         }
+                   });
+                  }
+             });
+          }
    });
+ });
+
 
 
     app.post('/uploaddoc/:type',(req,res)=>{
