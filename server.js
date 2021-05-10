@@ -376,8 +376,8 @@ app.post('/uploadmarks/:ID', function(req, res) {
                          while(markspossible === undefined) {
                            require('deasync').runLoopOnce();
                          }
-                          console.log(markspossible);
-                           if(markspossible != 0){
+                          var tempmarks=markspossible;
+                           if(result1[0] != undefined){
                              var _sql="select * from GRACEMARKS where STUD_ID='"+temp_roll+"';"
                              connection.query(_sql, function(err, result) {
                                if (err) {
@@ -387,7 +387,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
                                else{
                                   if(result.length==0){
                                    // console.log(_sql);
-                                   _sql="insert into GRACEMARKS values('"+temp_roll+"',"+markspossible+");"
+                                   _sql="insert into GRACEMARKS values('"+temp_roll+"',"+tempmarks+");"
                                    console.log(_sql);
                                    connection.query(_sql, function(err, result) {
                                      if (err) {
@@ -401,7 +401,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
                                   }
                                   else{
                                    // console.log(markspossible,temp_roll);
-                                    _sql="UPDATE GRACEMARKS set GRACEMARKS="+markspossible+" where STUD_ID='"+temp_roll+"';"
+                                    _sql="UPDATE GRACEMARKS set GRACEMARKS="+tempmarks+" where STUD_ID='"+temp_roll+"';"
                                     console.log(_sql);
                                     connection.query(_sql, function(err, result) {
                                       if (err) {
@@ -416,7 +416,6 @@ app.post('/uploadmarks/:ID', function(req, res) {
                                }
                              });
                            }
-                        //console.log("outside",markspossible);
                     }
                   }
                }
