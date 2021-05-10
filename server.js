@@ -743,27 +743,40 @@ app.post("/deleteproof",(req,res)=>{
    });
   });
 //------------------Exam-officer---------------------------------------------------
-app.get("/examofficerhome/:id",(req,res)=>{
-      var sql= "select * from EXAMOFFICER where ID='"+req.params.id+"';"
-      connection.query(sql, function(err, result) {
-      if (err) {
-          throw err;
-          console.log(err);
-      }
-      else{
-           name=result[0].NAME;
-           id=result[0].ID;
-           res.render("examoff-home",{name:name,id:id});
-      }
-    });
+
+function Examoff_name(ID){
+  var fac_name;
+  var sql="select * from EXAMOFFICER where ID='"+ID+"';"
+  connection.query(sql, function(err, result) {
+    if (err) {
+        throw err;
+        res.send("Opps SQL error");
+        console.log(err);
+        return ;
+    }
+    else{
+      fac_name = result[0].NAME;
+    }
+  });
+  while(fac_name === undefined) {
+    require('deasync').runLoopOnce();
+  }
+  return fac_name;
+}
+
+
+app.get("/examofficerhome/:ID",(req,res)=>{
+      var fac_name= Examoff_name(req.params.ID);
+      res.render("examoff-home",{name:fac_name,id:req.params.ID});
+
 });
 
-app.get("/FixGradingScheme/:id",(req,res)=>{
-
-         res.render("examoff-gradscheme",{name:"pranesh",id:"111"});
-
+app.get("/FixGradingScheme/:ID",(req,res)=>{
+      var fac_name= Examoff_name(req.params.ID);
+      res.render("examoff-gradscheme",{name:fac_name,id:req.params.ID});
 });
-app.post("/gradscheme/:id",(req,res)=>{
+
+app.post("/gradscheme/:ID",(req,res)=>{
   var examoff_id=req.params.ID ;
   var path;
   var exceltojson;
@@ -850,16 +863,15 @@ app.post("/gradscheme/:id",(req,res)=>{
    })
 });
 
-app.get("/FixGraceMarkRules/:id",(req,res)=>{
-
-         res.render("examoff-gmrules",{name:"pranesh",id:"111"});
+app.get("/FixGraceMarkRules/:ID",(req,res)=>{
+        var fac_name= Examoff_name(req.params.ID);
+        res.render("examoff-gmrules",{name:fac_name,id:req.params.ID});
 
 });
 
-app.get("/Results/:id",(req,res)=>{
-
-         res.render("examoff-results",{name:"pranesh",id:"111"});
-
+app.get("/Results/:ID",(req,res)=>{
+      var fac_name= Examoff_name(req.params.ID);
+      res.render("examoff-results",{name:fac_name,id:req.params.ID});
 });
 
 app.get("/calculateresult",(req,res)=>{
