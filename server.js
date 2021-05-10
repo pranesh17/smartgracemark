@@ -329,7 +329,8 @@ app.post('/uploadmarks/:ID', function(req, res) {
         res.render("faculty-gracemarks",{name:fac_name,id:req.params.ID});    // need to add js for disabling the button
 
    });
-  app.get("/allotgracemarks",(req,res)=>{
+  app.get("/allotgracemarks/:ID",(req,res)=>{
+    var FACU_ID=req.params.ID;
     var i=0;
     var sql= "select ROLLNUM from student;"
     connection.query(sql, function(err, result) {
@@ -375,31 +376,18 @@ app.post('/uploadmarks/:ID', function(req, res) {
                          while(markspossible === undefined) {
                            require('deasync').runLoopOnce();
                          }
-                              //sync problem
-                            var _sql="select * from GRACEMARKS where STUD_ID='"+temp_roll+"';"
-                            connection.query(_sql, function(err, result) {
-                              if (err) {
-                                  throw err;
-                                  console.log(err);
-                              }
-                              else{
-                                 if(result.length==0){
-                                  // console.log(_sql);
-                                  _sql="insert into GRACEMARKS values('"+temp_roll+"',"+markspossible+");"
-                                  console.log(_sql);
-                                  connection.query(_sql, function(err, result) {
-                                    if (err) {
-                                        throw err;
-                                        console.log(err);
-                                    }
-                                    else{
-                                       console.log("successfully gracemarks are added");
-                                    }
-                                  });
-                                 }
-                                 else{
-                                  // console.log(markspossible,temp_roll);
-                                   _sql="UPDATE GRACEMARKS set GRACEMARKS="+markspossible+" where STUD_ID='"+temp_roll+"';"
+                          console.log(markspossible);
+                           if(markspossible != 0){
+                             var _sql="select * from GRACEMARKS where STUD_ID='"+temp_roll+"';"
+                             connection.query(_sql, function(err, result) {
+                               if (err) {
+                                   throw err;
+                                   console.log(err);
+                               }
+                               else{
+                                  if(result.length==0){
+                                   // console.log(_sql);
+                                   _sql="insert into GRACEMARKS values('"+temp_roll+"',"+markspossible+");"
                                    console.log(_sql);
                                    connection.query(_sql, function(err, result) {
                                      if (err) {
@@ -407,29 +395,28 @@ app.post('/uploadmarks/:ID', function(req, res) {
                                          console.log(err);
                                      }
                                      else{
-                                        console.log("successfully gracemarks are Updated");
+                                        console.log("successfully gracemarks are added");
                                      }
                                    });
-                                 }
-                              }
-                            });
-
+                                  }
+                                  else{
+                                   // console.log(markspossible,temp_roll);
+                                    _sql="UPDATE GRACEMARKS set GRACEMARKS="+markspossible+" where STUD_ID='"+temp_roll+"';"
+                                    console.log(_sql);
+                                    connection.query(_sql, function(err, result) {
+                                      if (err) {
+                                          throw err;
+                                          console.log(err);
+                                      }
+                                      else{
+                                         console.log("successfully gracemarks are Updated");
+                                      }
+                                    });
+                                  }
+                               }
+                             });
+                           }
                         //console.log("outside",markspossible);
-                        //---add newly
-
-
-                           //  console.log(_sql);
-                           //  _sql="insert into GRACEMARKS values('"+temp_roll+"',"+markspossible+");"
-                           // console.log(_sql);
-                           // connection.query(_sql, function(err, result) {
-                           //   if (err) {
-                           //       throw err;
-                           //       console.log(err);
-                           //   }
-                           //   else{
-                           //      console.log("successfully gracemarks are added");
-                           //   }
-                           // });
                     }
                   }
                }
@@ -438,7 +425,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
       }
     });
 
-    res.redirect("/facultygracemarks");
+    res.redirect("/facultygracemarks/"+FACU_ID);
   });
 
 //--------------student-section--------------------------
