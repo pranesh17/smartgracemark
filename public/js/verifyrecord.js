@@ -6,12 +6,12 @@ $(document).ready(function(){
   }
 });
 
-$('#GetFile').on('click', function () {
-  var rollnum=$('#rollno').attr('href');
-  var type=$('#type').attr('href');
-  console.log($('#rollno').attr('href'));
-  console.log($('#type').attr('href'));
 
+$('#GetFile').on('click', function () {
+  var rollnum=$('#roll').attr('href');
+  var type=$('#type').attr('href');
+  console.log($('#roll').attr('href'));
+  console.log($('#type').attr('href'));
   var data={ roll : rollnum, type : type }
   $.ajax({
       url: "/getFile",

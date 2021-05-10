@@ -678,7 +678,7 @@ app.post("/deleteproof",(req,res)=>{
                 if(result.length==0){
                   res.redirect("/recordvrification/"+id);   // send result
                 }else{
-                   res.render("coordinator-verifyrecord",{data: {name:_name,id:id,type:result[0].DOCTYPE, roll:roll, link:result[0].LINK,verified:result[0].VERIFIED}});
+                   res.render("coordinator-verifyrecord",{data: {name:_name,id:id,type:result[0].DOCTYPE, roll:result[0].ROLLNUM, link:result[0].LINK,verified:result[0].VERIFIED}});
 
                 }
               }
@@ -688,28 +688,26 @@ app.post("/deleteproof",(req,res)=>{
    });
 
    app.post("/getFile",(req,res)=>{
-   //   var roll=req.body.roll;
-   //   var type=req.body.type;
-   //   console.log(req.body); // get type and rollnum to query about link
-   //   var sql="select * from PROOFDOC where rollnum='"+roll+"' and DOCTYPE='"+type+"';";
-   //   connection.query(sql, function(err, result) {
-   //   if (err) {
-   //       throw err;
-   //       console.log(err);
-   //   }
-   //   else{
-   //       var link=result[0].LINK;
-   //       var path=+"./" + link;
-   //       var data =fs.readFileSync(path,{encoding: 'base64'});
-   //       res.contentType("application/pdf");
-   //       res.send(data);
-   //   }
-   // });
+     var roll=req.body.roll;
+     var type=req.body.type;
+     var sql="select * from PROOFDOC where rollnum='"+roll+"' and DOCTYPE='"+type+"';";
+     connection.query(sql, function(err, result) {
+     if (err) {
+         throw err;
+         console.log(err);
+     }
+     else{
+         var link=result[0].LINK;
+         var path="./" + link;
+         var data =fs.readFileSync(path,{encoding: 'base64'});
+         res.contentType("application/pdf");
+         res.send(data);
+     }
+   });
 
-   var data =fs.readFileSync('./public/uploads/file-1617452609811.pdf',{encoding: 'base64'});
-   res.contentType("application/pdf");
-   res.send(data);
-
+   // var data =fs.readFileSync('./public/uploads/file-1617452609811.pdf',{encoding: 'base64'});
+   // res.contentType("application/pdf");
+   // res.send(data);
 });
 
    app.post("/verifydoc/:id",(req,res)=>{
