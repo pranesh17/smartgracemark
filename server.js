@@ -211,7 +211,8 @@ app.post('/forgotpassword',(req,res)=>{
                     console.log('Email sent: ' + info.response);
                   }
                 });
-              res.redirect('/'); //send page as responce
+              res.setHeader("Content-Type", "text/html");
+              res.send('<h2>   New Password sent, check your Mail</h2> <a href="/">Back to Home</a>');
               }
          });
     }
