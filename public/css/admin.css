@@ -23,6 +23,7 @@ p{
     padding-right: 0;
     background-image: linear-gradient(#343a40, #0093E9);
     font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     line-height: 1.5;
     color: white;
     height: 850px;
@@ -89,16 +90,9 @@ p{
     background-color: rgba(0, 0, 0, 0.4);
 }
 .content{
-  /* background: white ; */
-  /*background-image: url("https://www.transparenttextures.com/patterns/black-thread.png");*/
-  /*background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
-  /*background-image: url("https://www.transparenttextures.com/patterns/gplay.png");*/
-  /* background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png"); */
-  background-color: #cdd6a9;
-  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
 
-
-
+  background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
+  background-color: #1eae98;
   height: 850px;
   padding: 0 16px;
   overflow: scroll;

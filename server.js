@@ -971,7 +971,6 @@ app.get("/publishresult",(req,res)=>{
 
 
 
-
 //------------------test---------------------------------------------------
    app.get("/test",(req,res)=>{
     res.render("coordinator-verifyrecord",{data: {type:req.params.type, roll:"", link:""}})
