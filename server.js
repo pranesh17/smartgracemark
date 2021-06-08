@@ -633,6 +633,10 @@ app.post('/uploadmarks/:ID', function(req, res) {
         });
     });
 
+    app.get("/profile",(req,res)=>{
+       res.send("student ptofile")
+    });
+
 //------------------coordinator-section----------------------------------
  var coordinatorname;
  var coordinatortype;
