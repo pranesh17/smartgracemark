@@ -89,11 +89,16 @@ p{
     background-color: rgba(0, 0, 0, 0.4);
 }
 .content{
-  background: white ;
+  /* background: white ; */
   /*background-image: url("https://www.transparenttextures.com/patterns/black-thread.png");*/
   /*background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
   /*background-image: url("https://www.transparenttextures.com/patterns/gplay.png");*/
-  background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+  /* background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png"); */
+  background-color: #cdd6a9;
+  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+
+
+
   height: 850px;
   padding: 0 16px;
   overflow: scroll;
