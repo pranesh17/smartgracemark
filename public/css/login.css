@@ -4,13 +4,18 @@ html {
 
 }
 body{
-  background-image: linear-gradient(#00d2ff, #C4E0E5);
+  /* background-color: #002629; #001424;
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png"); */
+  background-color: #04000a;
+  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  /* background-image: linear-gradient(#00d2ff, #C4E0E5); */
   /* background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
   background-color: #625261; */
 }
 .bg{
-  /* background-image: linear-gradient(#00d2ff, #C4E0E5); */
-  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background-image: linear-gradient(#00d2ff, #C4E0E5);
+  /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
 }
 .container-fluid {
     padding-top: 70px;

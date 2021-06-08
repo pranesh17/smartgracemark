@@ -10,6 +10,7 @@ const fs = require('fs');
 const app = express();
 const xlstojson = require("xls-to-json-lc");
 const xlsxtojson = require("xlsx-to-json-lc");
+const nodemailer = require('nodemailer');
 require('dotenv').config()
 app.set('view engine', 'ejs');
 
@@ -161,6 +162,58 @@ app.post('/stu-login', (req, res) => {
       else{
          res.send("Wrong password or RollNumber")
       }
+    }
+  });
+});
+//-----------------forgot-password-------------------
+app.get('/forgotpassword',(req,res)=>{
+   res.render("forgot-password");
+});
+
+app.post('/forgotpassword',(req,res)=>{
+  var email = req.body.email;
+
+  var sql="select ROLLNUM from STUDENT where EMAIL = '"+email+"';"
+  connection.query(sql, function(err, result) {
+    if (err) {
+
+        console.log(err);
+    }
+    else{
+        var rollnum=result[0].ROLLNUM ;
+        var sql1="UPDATE STUDENT SET PASSWORD='xisdylp' where ROLLNUM='"+rollnum+"';"
+        console.log(sql1);
+        connection.query(sql, function(err, result) {
+              if (err) {
+
+                  console.log(err);
+              }
+              else{
+                var transporter = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                    user: 'gracemarkallocator@gmail.com',
+                    pass: '@1B2c3d$e5'
+                  }
+                });
+
+                var mailOptions = {
+                  from: 'gracemarkallocator@gmail.com',
+                  to: 'praneshmj17@gmail.com',
+                  subject: 'Password reset',
+                  text: 'New Password: xisdylp'
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log('Email sent: ' + info.response);
+                  }
+                });
+              res.redirect('/'); //send page as responce
+              }
+         });
     }
   });
 });
