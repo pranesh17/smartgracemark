@@ -51,43 +51,53 @@
       </div>
     </nav>
 
-    <div class="uploadpage">
+    <div class="profilepage">
        <br><br>
-       <div class="infocontainer">
-           <div class="studentInfo">
-                <h4>Name: <%= name %></h4>
-                <h4>RollNumber: <%= roll %></h4>
-                <h4><b>SGPA: <%= cgpa %></b></h4>
+
+       <div class="profilecontainer">
+         <h2>My Profile</h2>
+          <div class="profilepic">
+             <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/12/9-Best-Online-Avatars-and-How-to-Make-Your-Own-for-Free-image1-5.png">
+          </div>
+          <br>
+
+           <div class="ProfileInfo">
+                <h5><b>Basic Information</b></h5>
+                <hr>
+                <h4><b><%= name %></b></h4>
+                <h6>RollNumber:     <%= roll %></h6>
+                <h6>Email:        <%= email %></h6>
+                <h6>Department:     <%= dept %></h6>
+                <h6>Year:           <%= year %></h6>
+                <h6>Section:        <%= section %></h6>
            </div>
-           <div class="gradeTable">
-             <table class="table table-hover table-bordered table-dark table-striped">
-                <thead>
-                  <tr>
-                      <th scope="col">S.no</th>
-                      <th scope="col">COURSEID</th>
-                      <th scope="col">Grade</th>
-                  </tr>
-                </thead>
-                  <tbody>
-                        <%
-                        if(userData.length!=0){
-                        var i=1;
-                        userData.forEach(function(data){
-                        %>
-                        <tr>
-                            <td><%=i; %></td>
-                            <td><%=data.COURSEID %></td>
-                            <td><%=data.GRADE %></td>
-                        </tr>
-                        <%  i++; }) %>
-                        <% } else{ %>
-                            <tr>
-                                <td colspan="7">No Data Found</td>
-                            </tr>
-                        <% } %>
-                 </tbody>
-               </table>
-            </div>
+           <div class="change-password">
+             <h4>Change Password</h4>
+             <hr>
+               <form  action="/changepassword" method="post">
+                 <div class="form-group  row">
+                   <label for="colFormLabelSm" class="col-sm-2 col-form-label inline col-form-label-sm">Current Password</label>
+                   <div class="col-sm-10">
+                     <input type="password" class="form-control form-control" id="colFormLabelSm" name="currpass" placeholder="current password">
+                   </div>
+                 </div>
+                 <div class="form-group row">
+                   <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">New Password</label>
+                   <div class="col-sm-10">
+                     <input type="password" class="form-control form-control" id="colFormLabelSm" name="newpass" placeholder="New password">
+                   </div>
+                 </div>
+                 <div class="form-group row">
+                   <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Confirm Password</label>
+                   <div class="col-sm-10">
+                     <input type="password" class="form-control form-control" id="colFormLabelSm" name="confirmpass" placeholder="Confirm password">
+                   </div>
+                 </div>
+                 <input type="hidden"  name="roll" value="<%= roll ; %>">
+                <button class="btn btn-dark " type="submit">Change Password </button>
+               </form>
+           </div>
+
         </div>
     </div>
 

@@ -112,12 +112,51 @@
 .infocontainer{
   padding-top: 25px;
   margin: 0px 120px 25px 120px;
+  width:50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 .studentInfo{
-  padding-bottom: 25px;
-  padding-top: 10px;
+  padding: 20px 30px;
+  /* padding-bottom: 25px;
+  padding-top: 10px; */
 }
 .gradeTable{
-    width: 50%;
+    padding: 20px 20px;
+    width: 70%;
+}
+.profilepage{
+  height: 970px;
+  background-color: #1c1427;
+  background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+}
+.profilecontainer{
+  /* padding-top: 25px;
+  margin: 0px 120px 25px 120px; */
+  padding: 20px;
+  margin-left: 12%;
+  width:65%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+  border-radius: 15px;
+}
+.ProfileInfo{
+  margin-top: 8px;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #a7c4bc;
+  width: 77%;
+
+}
+.profilepic img{
+    border-radius: 50%;
+    width :150px;
+    height :150px;
+}
+.change-password{
+  padding: 20px;
+  width: 77%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #a7c4bc;
 }

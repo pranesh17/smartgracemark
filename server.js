@@ -633,8 +633,52 @@ app.post('/uploadmarks/:ID', function(req, res) {
         });
     });
 
-    app.get("/profile",(req,res)=>{
-       res.send("student ptofile")
+    app.get("/studentprofile/:id",(req,res)=>{
+      var rollno=req.params.id;
+      var sql= "select * from STUDENT where ROLLNUM='"+req.params.id+"';"
+      connection.query(sql, function(err, result) {
+        if (err) {
+            throw err;
+            console.log(err);
+        }
+        else{
+          res.render("student-profile",{name:result[0].NAME,roll:result[0].ROLLNUM,dept:result[0].DEPT,year:result[0].YEAR,section:result[0].SECTION,email:result[0].EMAIL});
+        }
+      });
+    });
+
+    app.post("/changepassword",(req,res)=>{
+       var roll=req.body.roll;
+       var password=req.body.currpass;
+       var newpass=req.body.newpass;
+       var sql= "select * from STUDENT where ROLLNUM='"+roll+"';"
+       connection.query(sql, function(err, result) {
+         if (err) {
+             throw err;
+             console.log(err);
+         }
+         else{
+            console.log(result[0].PASSWORD);
+            if(result[0].PASSWORD != password){
+              res.setHeader("Content-Type", "text/html");
+              res.send('<h2> Enterted Passsword is Wrong </h2> <a href="/studentprofile/'+roll+'">Back to Profile Page</a>');
+            }
+            else{
+                var sql1="UPDATE STUDENT SET PASSWORD='"+newpass+"' where ROLLNUM='"+roll+"';"
+                connection.query(sql1, function(err, result) {
+                if (err) {
+                    throw err;
+                    console.log(err);
+                }
+                else{
+                  res.setHeader("Content-Type", "text/html");
+                  res.send('<h2> Password Changed Successfully </h2> <a href="/studentprofile/'+roll+'">Back to Profile Page</a>');
+                }
+              });
+            }
+         }
+       });
+
     });
 
 //------------------coordinator-section----------------------------------
