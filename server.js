@@ -896,7 +896,16 @@ app.get("/examofficerhome/:ID",(req,res)=>{
 
 app.get("/FixGradingScheme/:ID",(req,res)=>{
       var fac_name= Examoff_name(req.params.ID);
-      res.render("examoff-gradscheme",{name:fac_name,id:req.params.ID});
+      var sql="SELECT * FROM GRADE";
+      connection.query(sql, function(err, result) {
+      if (err) {
+          throw err;
+          console.log(err);
+      }
+      else{
+        res.render("examoff-gradscheme",{name:fac_name,id:req.params.ID,userData:result});
+      }
+     });
 });
 
 app.post("/gradscheme/:ID",(req,res)=>{

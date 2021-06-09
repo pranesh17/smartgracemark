@@ -96,9 +96,44 @@
            <div id="welcome" class="col-lg-8">
                <h1>Grading Scheme</h1>
                  <br>
-             </br>
          </div>
          <div class="col-lg-8">
+           <table class="table table-hover table-bordered table-dark table-striped">
+             <thead>
+               <tr>
+                   <th scope="col">S.No</th>
+                   <th scope="col">GRADE</th>
+                   <th scope="col">MINMARK</th>
+                   <th scope="col">MAXMARK</th>
+                   <th scope="col">POINTS</th>
+               </tr>
+             </thead>
+             <tbody>
+               <%
+               if(userData.length!=0){
+               var i=1;
+               userData.forEach(function(data){
+               %>
+               <tr>
+                   <td><%=i; %></td>
+                   <td><%=data.GRADE %></td>
+                   <td><%=data.MINMARK %></td>
+                   <td><%=data.MAXMARK %></td>
+                   <td><%=data.POINTS %></td>
+               </tr>
+               <%  i++; }) %>
+               <% } else{ %>
+                   <tr>
+                       <td colspan="7">No Data Found</td>
+                   </tr>
+               <% } %>
+             </tbody>
+           </table>
+         </div>
+         <br>
+         <div class="col-lg-8">
+           <h4>Update Grading Scheme</h4>
+           <br>
            <form id="uploadForm" enctype="multipart/form-data" action="/gradscheme/<%= id %>" method="post">
              <input type="file" name="file" />  <br><br>
              <input type="hidden" id="rollno" name="rollno" value="123" >
