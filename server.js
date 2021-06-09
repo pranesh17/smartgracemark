@@ -289,7 +289,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
                          return res.json({error_code:1,err_desc:err, data: null});
                      }
                       result.forEach(function(entry) {
-                           // console.log(entry);
+                            // console.log(entry);
                             var _sql="Select * from MARKS where STUD_ID='"+entry.rollno+"'and COURSEID='"+entry.courseid+"'and FACU_ID='"+FACU_ID+"';"
                             connection.query(_sql, function(err, _result) {
                                 if (err){
@@ -315,7 +315,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
                                             });
 
                                        }else{
-                                        sql="UPDATE MARKS SET MARKS="+_result[0].MARKS+" where STUD_ID='"+_result[0].STUD_ID+"'and COURSEID='"+_result[0].COURSEID+"'and FACU_ID='"+FACU_ID+"';"
+                                        sql="UPDATE MARKS SET MARKS="+entry.marks+" where STUD_ID='"+_result[0].STUD_ID+"'and COURSEID='"+_result[0].COURSEID+"'and FACU_ID='"+FACU_ID+"';"
                                         connection.query(sql, function(err, __result) {
                                              if (err){
                                                res.send()
@@ -988,12 +988,38 @@ app.post("/gradscheme/:ID",(req,res)=>{
 
 app.get("/FixGraceMarkRules/:ID",(req,res)=>{
         var fac_name= Examoff_name(req.params.ID);
-        res.render("examoff-gmrules",{name:fac_name,id:req.params.ID});
+        var sql="SELECT * FROM GRACEMARKRULE;"
+        connection.query(sql, function(err, result) {
+        if (err) {
+            throw err;
+            console.log(err);
+        }
+        else{
+           res.render("examoff-gmrules",{name:fac_name,id:req.params.ID,paper:result[0].PAPER,service:result[0].SERVICE,cocurricular:result[0].COCURRICULAR});
+        }
+      });
+});
 
+app.post("/gracemarkrules/:ID",(req,res)=>{
+   var id=req.params.ID;
+   var paper = req.body.paper;
+   var service= req.body.service;
+   var cocurricular=req.body.cocurricular;
+   var sql="UPDATE GRACEMARKRULE SET PAPER ="+paper+", SERVICE = "+service+ ",COCURRICULAR="+cocurricular+" WHERE id = 1;";
+   connection.query(sql, function(err, result) {
+   if (err) {
+       throw err;
+       console.log(err);
+   }
+   else{
+      res.redirect("/FixGraceMarkRules/"+id);
+   }
+  });
 });
 
 app.get("/Results/:ID",(req,res)=>{
       var fac_name= Examoff_name(req.params.ID);
+
       res.render("examoff-results",{name:fac_name,id:req.params.ID});
 });
 
