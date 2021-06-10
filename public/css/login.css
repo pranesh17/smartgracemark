@@ -16,6 +16,7 @@ body{
 .responcepage{
   background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
   background-color: #f5f5f5;
+  color: green;
   height: 750px;
 }
 .bg{
@@ -50,7 +51,9 @@ body{
 .container{
   color:#eff8ff;
 }
-
+.container h2{
+    color: #457b51;
+}
 .jumbotron{
   /* background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png"); */
   background-color: #999;
