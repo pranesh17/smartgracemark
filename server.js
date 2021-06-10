@@ -176,45 +176,54 @@ app.post('/forgotpassword',(req,res)=>{
   var sql="select ROLLNUM from STUDENT where EMAIL = '"+email+"';"
   connection.query(sql, function(err, result) {
     if (err) {
-
+        res.send("Sql Error!")
         console.log(err);
     }
-    else{
-        var rollnum=result[0].ROLLNUM ;
-        var sql1="UPDATE STUDENT SET PASSWORD='xisdylp' where ROLLNUM='"+rollnum+"';"
-        console.log(sql1);
-        connection.query(sql, function(err, result) {
-              if (err) {
+    else
+    {
+       console.log(result);
+       if(result.length === 0){
+           res.send("Email Not Correct !");
+       }
+       else
+       {
+         var rollnum=result[0].ROLLNUM ;
+         var sql1="UPDATE STUDENT SET PASSWORD='xisdylp' where ROLLNUM='"+rollnum+"';"
+         console.log(sql1);
+         connection.query(sql, function(err, result) {
+               if (err) {
 
-                  console.log(err);
-              }
-              else{
-                var transporter = nodemailer.createTransport({
-                  service: 'gmail',
-                  auth: {
-                    user: 'gracemarkallocator@gmail.com',
-                    pass: '@1B2c3d$e5'
-                  }
-                });
+                   console.log(err);
+               }
+               else{
+                 var transporter = nodemailer.createTransport({
+                   service: 'gmail',
+                   auth: {
+                     user: 'gracemarkallocator@gmail.com',
+                     pass: '@1B2c3d$e5'
+                   }
+                 });
 
-                var mailOptions = {
-                  from: 'gracemarkallocator@gmail.com',
-                  to: 'praneshmj17@gmail.com',
-                  subject: 'Password reset',
-                  text: 'New Password: xisdylp'
-                };
+                 var mailOptions = {
+                   from: 'gracemarkallocator@gmail.com',
+                   to: 'praneshmj17@gmail.com',
+                   subject: 'Password reset',
+                   text: 'New Password: xisdylp'
+                 };
 
-                transporter.sendMail(mailOptions, function(error, info){
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log('Email sent: ' + info.response);
-                  }
-                });
-              res.setHeader("Content-Type", "text/html");
-              res.send('<h2>   New Password sent, check your Mail</h2> <a href="/">Back to Home</a>');
-              }
-         });
+                 transporter.sendMail(mailOptions, function(error, info){
+                   if (error) {
+                     console.log(error);
+                   } else {
+                     console.log('Email sent: ' + info.response);
+                   }
+                 });
+               res.render("responce",{message:"New Password sent, check your Mail",link:"/" } );
+               // res.setHeader("Content-Type", "text/html");
+               // res.send('<h2>   New Password sent, check your Mail</h2> <a href="/">Back to Home</a>');
+               }
+          });
+       }
     }
   });
 });
@@ -390,6 +399,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
     connection.query(sql, function(err, result) {
       if (err) {
           throw err;
+          res.send(err);
           console.log(err);
       }
       else{
@@ -477,8 +487,10 @@ app.post('/uploadmarks/:ID', function(req, res) {
         }
       }
     });
-
-    res.redirect("/facultygracemarks/"+FACU_ID);
+    res.render("responce",{message:"Gracemark Added Successfully",link:"/facultygracemarks/"+FACU_ID } );
+    // res.setHeader("Content-Type", "text/html");
+    // res.send('<h2>Gracemark Added Successfully </h2> <h4><a href="/facultygracemarks/'+FACU_ID+'">Back to Previous Page</a></h4>');
+    // res.redirect("/facultygracemarks/"+FACU_ID);
   });
 
 //--------------student-section--------------------------
@@ -660,8 +672,9 @@ app.post('/uploadmarks/:ID', function(req, res) {
          else{
             console.log(result[0].PASSWORD);
             if(result[0].PASSWORD != password){
-              res.setHeader("Content-Type", "text/html");
-              res.send('<h2> Enterted Passsword is Wrong </h2> <a href="/studentprofile/'+roll+'">Back to Profile Page</a>');
+              // res.setHeader("Content-Type", "text/html");
+              // res.send('<h2> Enterted Passsword is Wrong </h2> <a href="/studentprofile/'+roll+'">Back to Profile Page</a>');
+              res.render("responce",{message:"Enterted Passsword is Wrong",link:"/studentprofile/"+roll } );
             }
             else{
                 var sql1="UPDATE STUDENT SET PASSWORD='"+newpass+"' where ROLLNUM='"+roll+"';"
@@ -671,8 +684,9 @@ app.post('/uploadmarks/:ID', function(req, res) {
                     console.log(err);
                 }
                 else{
-                  res.setHeader("Content-Type", "text/html");
-                  res.send('<h2> Password Changed Successfully </h2> <a href="/studentprofile/'+roll+'">Back to Profile Page</a>');
+                  res.render("responce",{message:"Password Changed Successfully",link:"/studentprofile/"+roll } );
+                  // res.setHeader("Content-Type", "text/html");
+                  // res.send('<h2> Password Changed Successfully </h2> <a href="/studentprofile/'+roll+'">Back to Profile Page</a>');
                 }
               });
             }
@@ -1032,22 +1046,23 @@ app.get("/Results/:ID",(req,res)=>{
       res.render("examoff-results",{name:fac_name,id:req.params.ID});
 });
 
-app.get("/calculateresult",(req,res)=>{
+app.get("/calculateresult/:ID",(req,res)=>{
+    var id=req.params.ID;
     var spawn = require("child_process").spawn;
     var process = spawn('python',["./pythonscript/GMA.py"] );
 
     process.stdout.on('data', function(data) {
-        res.send(data.toString());
+      res.render("responce",{message:data.toString(),link:"/Results/"+id } );
     } )
-
 });
 
-app.get("/publishresult",(req,res)=>{
+app.get("/publishresult/:ID",(req,res)=>{
+  var id=req.params.ID;
   var spawn = require("child_process").spawn;
   var process = spawn('python',["./pythonscript/Results.py"] );
 
   process.stdout.on('data', function(data) {
-      res.send(data.toString());
+    res.render("responce",{message:data.toString(),link:"/Results/"+id } );
   } )
 
 });

@@ -52,4 +52,4 @@ for student in students:
     else:
         mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
     mydb.commit()
-print("Results Calculated")
+print("Results published")

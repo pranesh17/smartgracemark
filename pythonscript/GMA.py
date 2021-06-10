@@ -58,7 +58,7 @@ class GMA:
                 gm = int(l[0])
             else:
                 gm = 0
-                
+
             creds = []
 
             for mark in marks:
@@ -129,7 +129,7 @@ class GMA:
 
             self.maxbf = -1
             self.bestdist = []
-    print("GRACEMARKS Allocated")
+    print("Results Calculated!")
 
 if __name__ == '__main__':
     G = GMA()
