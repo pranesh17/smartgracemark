@@ -869,10 +869,12 @@ app.post("/deleteproof",(req,res)=>{
            }
            else{
               console.log("successfully record verified"); // maybe send result
-              res.redirect("/recordvrification/"+id);
+              res.render("responce",{message:"Successfully Record Verified",link:"/recordvrification/"+id } );
+              // res.redirect("/recordvrification/"+id);
            }
          });
        }else{
+
          res.redirect("/recordvrification/"+id); // send responce ?
        }
 
