@@ -39,17 +39,18 @@ for student in students:
                     mycursor.execute("INSERT INTO RESULTS VALUES(%s,%s,%s)",(student[0], sub[0], grade[0]))
                     mydb.commit()
                 else:
-                    mycursor.execute("UPDATE RESULTS SET GRADE = %s WHERE RESULTS.STUD_ID = %s AND RESULTS.COURSEID = %s",(mark[0],mark[1],))
+                    mycursor.execute("UPDATE RESULTS SET GRADE = %s WHERE RESULTS.STUD_ID = %s AND RESULTS.COURSEID = %s",(grade[0],student[0],sub[0]))
                     mydb.commit()
                 totbf += grade[3] * sub[1]
-
+    if(totcreds == 0):
+        continue
     SGPA = totbf/ totcreds
     mycursor.execute("SELECT * FROM SGPA WHERE SGPA.STUD_ID = %s",(mark[0],))
     l = mycursor.fetchone()
     if(l == None):
-        mycursor.execute("UPDATE SGPA SET SGPA = %s WHERE SGPA.STUD_ID = %s",(SGPA, mark[0]))
+        mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
         mydb.commit()
     else:
-        mycursor.execute("INSERT INTO SGPA VALUES(%s,%s)",(student[0], SGPA))
-    mydb.commit()
+        mycursor.execute("UPDATE SGPA SET SGPA = %s WHERE SGPA.STUD_ID = %s",(SGPA, mark[0]))
+        mydb.commit()
 print("Results published")
