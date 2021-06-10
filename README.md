@@ -1,2 +1,2 @@
 # smartgracemark
-testing jenkins integration
+jenkins integration
