@@ -28,7 +28,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
             cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
         }
     });
-    var upload = multer({ //multer settings
+    var upload = multer({ 
                     storage: storage,
                     // fileFilter : function(req, file, callback) { //file filter
                     //     if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length-1]) === -1) {
