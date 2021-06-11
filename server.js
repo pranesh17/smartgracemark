@@ -299,46 +299,63 @@ app.post('/uploadmarks/:ID', function(req, res) {
                      }
                       result.forEach(function(entry) {
                             // console.log(entry);
-                            var _sql="Select * from MARKS where STUD_ID='"+entry.rollno+"'and COURSEID='"+entry.courseid+"'and FACU_ID='"+FACU_ID+"';"
-                            connection.query(_sql, function(err, _result) {
-                                if (err){
-                                   throw err;
-                                   console.log(err.sqlMessage);
-                                  }
-                                else
-                                  {
-                                       var sql;
-                                       if(_result.length==0){
-                                          sql = "INSERT INTO MARKS (STUD_ID, COURSEID, MARKS, FACU_ID) VALUES('"+entry.rollno+"','"+entry.courseid+"','"+entry.marks+"','"+FACU_ID+"');"
+                            var sql1= "select * from COURSE where ID='"+entry.courseid+"';"
+                            connection.query(sql1, function(err, result) {
+                              if (err) {
+                                  throw err;
+                                  res.send("Opps SQL error");
+                                  console.log(err);
+                              }
+                              else{
+                                if(result.length == 0){
+                                  // res.setHeader("Content-Type", "text/html");
+                                  // res.send('<h2>Invalid COURSEID in the File Uploaded </h2>');
+                                  console.log("Invalid COURSEID in the File Uploaded");
+                                }
+                                else{
+                                  var _sql="Select * from MARKS where STUD_ID='"+entry.rollno+"'and COURSEID='"+entry.courseid+"'and FACU_ID='"+FACU_ID+"';"
+                                  connection.query(_sql, function(err, _result) {
+                                      if (err){
+                                         throw err;
+                                         console.log(err.sqlMessage);
+                                        }
+                                      else
+                                        {
+                                             var sql;
+                                             if(_result.length==0){
+                                                sql = "INSERT INTO MARKS (STUD_ID, COURSEID, MARKS, FACU_ID) VALUES('"+entry.rollno+"','"+entry.courseid+"','"+entry.marks+"','"+FACU_ID+"');"
 
-                                         connection.query(sql, function(err, __result) {
-                                              if (err){
-                                                 throw err;
-                                                 res.send(err)
-                                                 console.log(err.sqlMessage);
-                                                }
-                                              else
-                                                {
-                                                  console.log("added entry");
-                                                 }
-                                            });
+                                               connection.query(sql, function(err, __result) {
+                                                    if (err){
+                                                       throw err;
+                                                       res.send(err)
+                                                       console.log(err.sqlMessage);
+                                                      }
+                                                    else
+                                                      {
+                                                        console.log("added entry");
+                                                       }
+                                                  });
 
-                                       }else{
-                                        sql="UPDATE MARKS SET MARKS="+entry.marks+" where STUD_ID='"+_result[0].STUD_ID+"'and COURSEID='"+_result[0].COURSEID+"'and FACU_ID='"+FACU_ID+"';"
-                                        connection.query(sql, function(err, __result) {
-                                             if (err){
-                                               res.send()
-                                                throw err;
-                                                console.log(err.sqlMessage);
-                                               }
-                                             else
-                                               {
-                                                 console.log("entry Updated");
-                                                }
-                                           });
-                                       }
-                                  }
-                                  });
+                                             }else{
+                                              sql="UPDATE MARKS SET MARKS="+entry.marks+" where STUD_ID='"+_result[0].STUD_ID+"'and COURSEID='"+_result[0].COURSEID+"'and FACU_ID='"+FACU_ID+"';"
+                                              connection.query(sql, function(err, __result) {
+                                                   if (err){
+                                                     res.send()
+                                                      throw err;
+                                                      console.log(err.sqlMessage);
+                                                     }
+                                                   else
+                                                     {
+                                                       console.log("entry Updated");
+                                                      }
+                                                 });
+                                             }
+                                        }
+                                        });
+                                }
+                              }
+                            });
                           });
                           console.log(path);
                           fs.unlink(path, (err) => {
@@ -415,73 +432,87 @@ app.post('/uploadmarks/:ID', function(req, res) {
                    console.log(err);
                }
                else{
-                   markspossible=0
-                  {
-                    if(result1.length>0){
+                 var sql1= "select * from GRACEMARKRULE where ID = 1; "
+                 connection.query(sql1, function(err, result) {
+                   if (err) {
+                       throw err;
+                       console.log(err);
+                   }
+                   else{
+                       var paper=result[0].PAPER;
+                       var service=result[0].SERVICE;
+                       var cocurricular=result[0].COCURRICULAR;
+                       markspossible=0
+                      {
+                        if(result1.length>0){
 
-                           var temp_roll=result1[0].ROLLNUM;
-                           for(var j=0;j<result1.length;j++){
-                             if(result1[j]==undefined){
-                               continue;
-                             }
-                             if(result1[j].VERIFIED==1){
-                                  if(result1[j].DOCTYPE=="paper"){
-                                      markspossible+=4;
-                                  }else if(result1[j].DOCTYPE=="services"){
-                                     markspossible+=3;
-                                  }else if (result1[j].DOCTYPE=="cocurricular") {
-                                     markspossible+=3;
+                               var temp_roll=result1[0].ROLLNUM;
+                               for(var j=0;j<result1.length;j++){
+                                 if(result1[j]==undefined){
+                                   continue;
+                                 }
+                                 if(result1[j].VERIFIED==1){
+                                      if(result1[j].DOCTYPE=="paper"){
+                                          markspossible+=paper;
+                                      }else if(result1[j].DOCTYPE=="services"){
+                                         markspossible+=service;
+                                      }else if (result1[j].DOCTYPE=="cocurricular") {
+                                         markspossible+=cocurricular;
+                                      }
                                   }
-                              }
-                           }
-
-                          console.log(markspossible,result1[0].ROLLNUM);
-                         // ---- addednewly
-                         while(markspossible === undefined) {
-                           require('deasync').runLoopOnce();
-                         }
-                          var tempmarks=markspossible;
-                           if(result1[0] != undefined){
-                             var _sql="select * from GRACEMARKS where STUD_ID='"+temp_roll+"';"
-                             connection.query(_sql, function(err, result) {
-                               if (err) {
-                                   throw err;
-                                   console.log(err);
                                }
-                               else{
-                                  if(result.length==0){
-                                   // console.log(_sql);
-                                   _sql="insert into GRACEMARKS values('"+temp_roll+"',"+tempmarks+");"
-                                   console.log(_sql);
-                                   connection.query(_sql, function(err, result) {
-                                     if (err) {
-                                         throw err;
-                                         console.log(err);
-                                     }
-                                     else{
-                                        console.log("successfully gracemarks are added");
-                                     }
-                                   });
-                                  }
-                                  else{
-                                   // console.log(markspossible,temp_roll);
-                                    _sql="UPDATE GRACEMARKS set GRACEMARKS="+tempmarks+" where STUD_ID='"+temp_roll+"';"
-                                    console.log(_sql);
-                                    connection.query(_sql, function(err, result) {
-                                      if (err) {
-                                          throw err;
-                                          console.log(err);
+
+                              //console.log(markspossible,result1[0].ROLLNUM);
+                             // ---- addednewly
+                             while(markspossible === undefined) {
+                               require('deasync').runLoopOnce();
+                             }
+                              var tempmarks=markspossible;
+                               if(result1[0] != undefined){
+                                 var _sql="select * from GRACEMARKS where STUD_ID='"+temp_roll+"';"
+                                 connection.query(_sql, function(err, result) {
+                                   if (err) {
+                                       throw err;
+                                       console.log(err);
+                                   }
+                                   else{
+                                      if(result.length==0){
+                                       // console.log(_sql);
+                                       _sql="insert into GRACEMARKS values('"+temp_roll+"',"+tempmarks+");"
+                                       console.log(_sql);
+                                       connection.query(_sql, function(err, result) {
+                                         if (err) {
+                                             throw err;
+                                             console.log(err);
+                                         }
+                                         else{
+                                            console.log("successfully gracemarks are added");
+                                         }
+                                       });
                                       }
                                       else{
-                                         console.log("successfully gracemarks are Updated");
+                                       // console.log(markspossible,temp_roll);
+                                        _sql="UPDATE GRACEMARKS set GRACEMARKS="+tempmarks+" where STUD_ID='"+temp_roll+"';"
+                                        console.log(_sql);
+                                        connection.query(_sql, function(err, result) {
+                                          if (err) {
+                                              throw err;
+                                              console.log(err);
+                                          }
+                                          else{
+                                             console.log("successfully gracemarks are Updated");
+                                          }
+                                        });
                                       }
-                                    });
-                                  }
+                                   }
+                                 });
                                }
-                             });
-                           }
-                    }
-                  }
+                        }
+                      }
+                   }
+                 });
+
+
                }
              });
         }
