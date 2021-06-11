@@ -28,7 +28,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
             cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
         }
     });
-    var upload = multer({ 
+    var upload = multer({
                     storage: storage,
                     // fileFilter : function(req, file, callback) { //file filter
                     //     if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length-1]) === -1) {
@@ -39,10 +39,16 @@ var storage = multer.diskStorage({ //multers disk storage settings
                 }).single('file');
 
 
+// var connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: process.env.PASSWORD,
+//   multipleStatements: true
+// });
 var connection = mysql.createConnection({
-  host: "localhost",
+  host: "34.72.115.95",
   user: "root",
-  password: process.env.PASSWORD,
+  password: "12345678p",
   multipleStatements: true
 });
 
@@ -54,7 +60,14 @@ connection.connect(function(err) {
   console.log('Connected to Database.');
 });
 
-connection.query("use gracemarkssystem", function(err, result , fields) {
+// connection.query("use gracemarkssystem", function(err, result , fields) {
+//   if (err) {
+//     throw err;
+//     res.send("Opps SQL error");
+//   }
+// });
+
+connection.query("use GraceMarksSystem", function(err, result , fields) {
   if (err) {
     throw err;
     res.send("Opps SQL error");
@@ -374,7 +387,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
 
     app.get('/marks_view_faculty/:ID',(req,res)=>{
       var fac_name= faculty_name(req.params.ID);
-      var sql= "select * from marks where FACU_ID='"+req.params.ID+"';"
+      var sql= "select * from MARKS where FACU_ID='"+req.params.ID+"';"
       connection.query(sql, function(err, result) {
         if (err) {
             throw err;
@@ -391,7 +404,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
         var STUD_ID=req.body.STUD_ID;
         var FACU_ID=req.body.FACU_ID;
         var COURSEID=req.body.COURSEID;
-        var sql= "delete from marks where FACU_ID='"+FACU_ID+"' and STUD_ID='"+STUD_ID+"' and COURSEID='"+COURSEID+"';"
+        var sql= "delete from MARKS where FACU_ID='"+FACU_ID+"' and STUD_ID='"+STUD_ID+"' and COURSEID='"+COURSEID+"';"
         connection.query(sql, function(err, result) {
           if (err) {
               throw err;
@@ -571,7 +584,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
              }
              else{
                  Name=result[0].NAME;
-                 var sql= "select * from sgpa where STUD_ID='"+rollno+"';"
+                 var sql= "select * from SGPA where STUD_ID='"+rollno+"';"
                  connection.query(sql, function(err, result) {
                    if (err) {
                        throw err;
@@ -583,7 +596,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
                        }else{
                            CGPA=0;
                        }
-                       var sql= "select * from results where STUD_ID='"+rollno+"';"
+                       var sql= "select * from RESULTS where STUD_ID='"+rollno+"';"
                        connection.query(sql, function(err, result) {
                          if (err) {
                              throw err;
