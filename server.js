@@ -844,7 +844,9 @@ app.post("/deleteproof",(req,res)=>{
               else{
 
                 if(result.length==0){
-                  res.redirect("/recordvrification/"+id);   // send result
+                  res.setHeader("Content-Type", "text/html");
+                  res.send('<h2> No Document is Submitted By this Student</h2> <h4> <a href="/recordvrification/'+id+'">Back to Previous Page</a> </h4>');
+                  // res.redirect("/recordvrification/"+id);   // send result
                 }else{
                    res.render("coordinator-verifyrecord",{data: {name:_name,id:id,type:result[0].DOCTYPE, roll:result[0].ROLLNUM, link:result[0].LINK,verified:result[0].VERIFIED}});
 
