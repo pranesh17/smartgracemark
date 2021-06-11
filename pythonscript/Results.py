@@ -31,7 +31,7 @@ class Results:
 
 
     # GATHERING ALL STUDENTS" DETAILS
-<<<<<<< Updated upstream
+# <<<<<<< Updated upstream
 mycursor.execute("SELECT STUDENT.ROLLNUM FROM STUDENT;")
 students = mycursor.fetchall()
 
@@ -75,8 +75,8 @@ for student in students:
     else:
         mycursor.execute("UPDATE SGPA SET SGPA = %s WHERE SGPA.STUD_ID = %s",(SGPA, mark[0]))
         mydb.commit()
-print("Results published")
-=======
+# print("Results published")
+# =======
         mycursor.execute("SELECT STUDENT.ROLLNUM FROM STUDENT;")
         students = mycursor.fetchall()
 
@@ -123,4 +123,4 @@ print("Results published")
 if __name__ == '__main__':
     R = Results()
     R.ResultGen()
->>>>>>> Stashed changes
+# >>>>>>> Stashed changes
