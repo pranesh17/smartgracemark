@@ -425,7 +425,7 @@ app.post('/uploadmarks/:ID', function(req, res) {
   app.get("/allotgracemarks/:ID",(req,res)=>{
     var FACU_ID=req.params.ID;
     var i=0;
-    var sql= "select ROLLNUM from student;"
+    var sql= "select ROLLNUM from STUDENT;"
     connection.query(sql, function(err, result) {
       if (err) {
           throw err;
@@ -1048,8 +1048,8 @@ app.post("/gradscheme/:ID",(req,res)=>{
                         console.error(err)
                         return
                       }
-                    })
-              res.redirect("/FixGradingScheme/"+FACU_ID);
+                    });
+              res.redirect("/FixGradingScheme/"+examoff_id);
            });
        } catch (e){
            res.json({error_code:1,err_desc:"Corupted excel file"});
@@ -1059,7 +1059,7 @@ app.post("/gradscheme/:ID",(req,res)=>{
 
 app.get("/FixGraceMarkRules/:ID",(req,res)=>{
         var fac_name= Examoff_name(req.params.ID);
-        var sql="SELECT * FROM GRACEMARKRULE;"
+        var sql="SELECT * FROM GRACEMARKRULE;";
         connection.query(sql, function(err, result) {
         if (err) {
             throw err;

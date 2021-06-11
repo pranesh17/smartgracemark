@@ -31,8 +31,8 @@ class GMA:
         return
 
     def GraceMarkAllocator(self):
-
-        mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
+        mydb = mysql.connector.connect(host="34.72.115.95", user="root", password="12345678p", database="GraceMarksSystem")
+        # mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
         mydb.autocommit=True
         mycursor = mydb.cursor()
 
@@ -129,6 +129,8 @@ class GMA:
 
             self.maxbf = -1
             self.bestdist = []
+
+            
     print("Results Calculated!")
 
 if __name__ == '__main__':

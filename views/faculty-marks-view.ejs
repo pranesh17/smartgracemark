@@ -102,7 +102,6 @@
                       <th scope="col">RollNumber</th>
                       <th scope="col">COURSEID</th>
                       <th scope="col">Marks</th>
-                      <th scope="col">Edit</th>
                       <th scope="col">Delete</th>
                   </tr>
                 </thead>
@@ -117,7 +116,6 @@
                       <td><%=data.STUD_ID %></td>
                       <td><%=data.COURSEID %></td>
                       <td><%=data.MARKS %></td>
-                      <td><a href="/users/edit/<%=data.id%>">Edit</a></td>
                       <td>
                             <form id="markdelete" class="" action="/deletemarks" method="post">
                              <input type="hidden"  name="STUD_ID" value="<%= data.STUD_ID ; %>">

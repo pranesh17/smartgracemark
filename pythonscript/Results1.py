@@ -25,7 +25,7 @@ class Results:
             return -1
 
     def ResultGen(self):
-        mydb = mysql.connector.connect(host="127.0.0.1", user="root", password=password, database="GraceMarksSystem")
+        mydb = mysql.connector.connect(host="34.72.115.95", user="root", password="12345678p", database="GraceMarksSystem")
         mydb.autocommit=True
         mycursor = mydb.cursor()
 
