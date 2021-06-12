@@ -39,18 +39,18 @@ var storage = multer.diskStorage({ //multers disk storage settings
                 }).single('file');
 
 
-// var connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: process.env.PASSWORD,
-//   multipleStatements: true
-// });
 var connection = mysql.createConnection({
-  host: "34.72.115.95",
+  host: "localhost",
   user: "root",
-  password: "12345678p",
+  password: process.env.PASSWORD,
   multipleStatements: true
 });
+// var connection = mysql.createConnection({
+//   host: "34.72.115.95",
+//   user: "root",
+//   password: "12345678p",
+//   multipleStatements: true
+// });
 
 connection.connect(function(err) {
   if (err) {
